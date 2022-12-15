@@ -17,7 +17,7 @@ public class HTMLHandler {
 		URL url = new URL(this.urlstr);
 		URLConnection conn = url.openConnection();
 		InputStream in = conn.getInputStream();
-		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		BufferedReader br = new BufferedReader(new InputStreamReader(in, "utf-8"));
 	
 		String retVal = "";
 	
