@@ -13,15 +13,14 @@ public class Tree {
 	}
 
 	private void setPostOrderScore(Node startNode, ArrayList<Keyword> keywords) throws IOException {
-		// 2. compute the score of children nodes via post-order, then setNodeScore for
-		// startNode
+		//compute the score of children nodes via post-order, then setNodeScore for startNode
 		//System.out.println(root.children.size());
 		for (int i = 0; i < startNode.children.size(); i++) {
 			setPostOrderScore(startNode.children.get(i), keywords);	
 		}
 		startNode.setNodeScore(keywords);
 	}
-//2 Yu 1.2 Fang 1.8
+
 	public void eularPrintTree() {
 		eularPrintTree(root);
 	}
@@ -35,7 +34,7 @@ public class Tree {
 		System.out.print("(");
 		System.out.print(startNode.webPage.getName() + "," + startNode.nodeScore);
 
-		// 3. print child via pre-order
+		//print child via pre-order
 
 		for (int i = 0; i < startNode.children.size(); i++) {
 			eularPrintTree(startNode.children.get(i));

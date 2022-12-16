@@ -14,33 +14,43 @@ public class HTMLHandler {
     }
 	
 	public String getHtml() throws IOException{
-		URL url = new URL(this.urlstr);
+		
+		URL url = new URL(urlstr);
 		URLConnection conn = url.openConnection();
 		InputStream in = conn.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(in, "utf-8"));
 	
 		String retVal = "";
-	
 		String line = null;
-		while ((line = br.readLine()) != null)
-		{
+		
+		while ((line = br.readLine()) != null) {
 		    retVal = retVal + line + "\n";
 		}
 	
 		return retVal;
     }
 	
-//	public ArrayList<String> deriveRelateKeywords() {
-//		
-//	}
-//	
+
 //	public String getBody() {
 //		
 //	}
 //	
-//  public String getPageName() {
-//    	
-//  }
+	public String getPageName() throws IOException {
+		
+		String pageName = "";
+		String content = getHtml();
+		
+		int head = content.indexOf("<title>");
+		int tail = content.indexOf("</title>");
+		
+		if(head != -1 && tail != -1) {
+			pageName = content.substring(head + 7, tail);
+		} else {
+			return null;
+		}
+		
+		return pageName;
+	}
 //    
 //  public String getSubLink() {
 //    	
