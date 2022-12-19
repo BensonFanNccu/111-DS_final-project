@@ -1,15 +1,17 @@
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class WebPage {
 	private String url;
 	private String name;
 	private KeywordCounter counter;
+	private HTMLHandler htmlHan;
 	private double score;
 
-	public WebPage(String url, String name) {
+	public WebPage(String url, String name) throws IOException {
 		this.url = url;
 		this.name = name;
+		htmlHan = new HTMLHandler(url);
+		counter = new KeywordCounter(htmlHan.getHtml(), null);  //user input要怎麼取得?
 	}
 
 	public String getName() {
@@ -17,7 +19,6 @@ public class WebPage {
 	}
 	
 	public void setScore() {
-		score = 0;
 		this.score = counter.countScore();
 	}
 	

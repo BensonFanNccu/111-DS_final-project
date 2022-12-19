@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLConnection;
 
 public class HTMLHandler {
 
@@ -16,25 +15,21 @@ public class HTMLHandler {
 	public String getHtml() throws IOException{
 		
 		URL url = new URL(urlstr);
-		URLConnection conn = url.openConnection();
-		InputStream in = conn.getInputStream();
+		InputStream in = url.openStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(in, "utf-8"));
 	
-		String retVal = "";
+		StringBuffer sb = new StringBuffer();
 		String line = null;
 		
 		while ((line = br.readLine()) != null) {
-		    retVal = retVal + line + "\n";
+		    sb.append(line + "\n");
 		}
+		
+		br.close();
 	
-		return retVal;
+		return sb.toString();
     }
 	
-
-//	public String getBody() {
-//		
-//	}
-//	
 	public String getPageName() throws IOException {
 		
 		String pageName = "";
@@ -51,9 +46,13 @@ public class HTMLHandler {
 		
 		return pageName;
 	}
-//    
-//  public String getSubLink() {
-//    	
-//  }
+    
+    public String[] getSublink() {
+    	
+    }
+    
+//	public String getBody() {
+//	
+//	}
 
 }

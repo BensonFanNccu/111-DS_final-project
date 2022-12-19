@@ -16,14 +16,13 @@ public class CallGoogle {
 	private String searchKeyword;
 	private String content;
 	
-	public CallGoogle(String searchKeyword) {
+	private ArrayList<WebPage> webList;
+	
+	public CallGoogle(String searchKeyword) throws IOException {
 		
 		this.searchKeyword = searchKeyword;
-		try {
-			content = getOriginalSearchPage();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		content = getOriginalSearchPage();
+		webList = new ArrayList<WebPage>();
 	}
 	
 	public String getOriginalSearchPage() throws IOException {
@@ -31,7 +30,7 @@ public class CallGoogle {
 		String retVal = "";
 		String encodedKeyword = URLEncoder.encode(searchKeyword, "UTF-8");
 		
-		URL u = new URL("http://www.google.com/search?q=" + encodedKeyword + "&oe=utf8&num=32");
+		URL u = new URL("http://www.google.com/search?q=" + encodedKeyword + "&oe=utf8&num=20");
 		URLConnection conn = u.openConnection();
 
 		conn.setRequestProperty("User-agent", "Chrome/107.0.5304.107");
@@ -44,19 +43,23 @@ public class CallGoogle {
 		while((line = bufReader.readLine()) != null) {
 			retVal += line;
 		}
+		
 		return retVal;
 	}
 	
-	public ArrayList<String> callAlgorithm() throws IOException {
+	public void callAlgorithm() throws IOException {
 
+		callGoogle();
+		callDefaultWebsite();
+	}
+	
+	public void callGoogle() throws IOException {
+		
 		if(content == null) {
 			content = getOriginalSearchPage();
 		}
 		
-		ArrayList<String> webpageList = new ArrayList<String>();
-		
 		Document doc = Jsoup.parse(content);
-		
 		Elements lis = doc.select("div");
 		lis = lis.select(".kCrYT");
 		
@@ -69,14 +72,42 @@ public class CallGoogle {
 					continue;
 				}
 				
-				webpageList.add(citeUrl.substring(7));
+				webList.add(new WebPage(citeUrl.substring(7), title));
 				
 			} catch (IndexOutOfBoundsException e) {
 //				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void callDefaultWebsite() {
 		
-		return webpageList;
+		//從我們預設的網站中找適合的webpage
+		HTMLHandler han1 = new HTMLHandler("https://www.sportsv.net/football");
+		HTMLHandler han2 = new HTMLHandler("https://www.goal.com/zh-cn?fbclid=IwAR25-TwTK4GW_KHn0ZYuyLLSbTfFNVRRWPwfqLR9ZT88W2y8E-LoJ7Pzev4");
+		HTMLHandler han3 = new HTMLHandler("https://xn--2022-pc5fw22r14bz8dgx6e7qb.com/?fbclid=IwAR2zXv2SkGUzjWJQpRv3gzn1GUClJ5jf-OfgyLdOqvSvqQgpi4uz3WQDIgc");
+		HTMLHandler han4 = new HTMLHandler("https://www.ctfa.com.tw/?fbclid=IwAR21Nuo1lLphYnXZq3JME9PnrNjuNg6wmxudL_DT2DkmFCwvUBEjzwmhCtk");
+		
+		for(String link: han1.getSublink()) {
+			
+		}
+		
+		for(String link: han2.getSublink()) {
+			
+		}
+		
+		for(String link: han3.getSublink()) {
+			
+		}
+
+		for(String link: han4.getSublink()) {
+	
+		}
+		
+	}
+	
+	public ArrayList<WebPage> getWebList() {
+		return webList;
 	}
 	
 	public ArrayList<String> deriveRelateKeywords() throws IOException {
@@ -104,5 +135,4 @@ public class CallGoogle {
 		
 		return relativeKeywordList;
 	}
-
 }
