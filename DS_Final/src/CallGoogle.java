@@ -80,10 +80,9 @@ public class CallGoogle {
 		}
 	}
 	
-	public void callDefaultWebsite() {
+	public void callDefaultWebsite() throws IOException {
 		
-		//�q�ڭ̹w�]����������A�X��webpage
-		HTMLHandler han1 = new HTMLHandler("https://www.sportsv.net/football");
+		/*HTMLHandler han1 = new HTMLHandler("https://www.sportsv.net/football");
 		HTMLHandler han2 = new HTMLHandler("https://www.goal.com/zh-cn?fbclid=IwAR25-TwTK4GW_KHn0ZYuyLLSbTfFNVRRWPwfqLR9ZT88W2y8E-LoJ7Pzev4");
 		HTMLHandler han3 = new HTMLHandler("https://xn--2022-pc5fw22r14bz8dgx6e7qb.com/?fbclid=IwAR2zXv2SkGUzjWJQpRv3gzn1GUClJ5jf-OfgyLdOqvSvqQgpi4uz3WQDIgc");
 		HTMLHandler han4 = new HTMLHandler("https://www.ctfa.com.tw/?fbclid=IwAR21Nuo1lLphYnXZq3JME9PnrNjuNg6wmxudL_DT2DkmFCwvUBEjzwmhCtk");
@@ -102,7 +101,12 @@ public class CallGoogle {
 
 		for(String link: han4.getSublink()) {
 	
-		}
+		}*/
+		
+		webList.add(new WebPage("https://www.sportsv.net/football", "足球 | 運動視界 Sports Vision"));
+		webList.add(new WebPage("https://www.goal.com/zh-cn?fbclid=IwAR25-TwTK4GW_KHn0ZYuyLLSbTfFNVRRWPwfqLR9ZT88W2y8E-LoJ7Pzev4", "足球新闻、实时比分、赛果及转会 | Goal.com China"));
+		webList.add(new WebPage("https://xn--2022-pc5fw22r14bz8dgx6e7qb.com/?fbclid=IwAR2zXv2SkGUzjWJQpRv3gzn1GUClJ5jf-OfgyLdOqvSvqQgpi4uz3WQDIgc", "2022 世界盃足球賽 即時新聞與世足賽相關資訊 » 世界盃足球賽2022最新消息"));
+		webList.add(new WebPage("https://www.ctfa.com.tw/?fbclid=IwAR21Nuo1lLphYnXZq3JME9PnrNjuNg6wmxudL_DT2DkmFCwvUBEjzwmhCtk", "首頁 - 中華民國足球協會CTFA"));
 		
 	}
 	

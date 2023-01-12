@@ -47,9 +47,9 @@ public class HTMLHandler {
 		return pageName;
 	}
     
-    public String[] getSublink() {
-    	
-    }
+//    public String[] getSublink() {
+//    	
+//    }
     
 //	public String getBody() {
 //	
